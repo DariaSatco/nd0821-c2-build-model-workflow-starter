@@ -61,7 +61,12 @@ def go(config: DictConfig):
                     "output_type": "clean_sample",
                     "output_description": "Data with outliers and null values removed",
                     "min_price": config['etl']['min_price'],
-                    "max_price": config['etl']['max_price']},
+                    "max_price": config['etl']['max_price'],
+                    "min_longitude": config['etl']['min_longitude'],
+                    "max_longitude": config['etl']['max_longitude'],
+                    "min_latitude": config['etl']['min_latitude'],
+                    "max_latitude": config['etl']['max_latitude']
+                    }
             )
 
         if "data_check" in active_steps:
@@ -78,7 +83,12 @@ def go(config: DictConfig):
                     "ref": "clean_sample.csv:reference",
                     "kl_threshold": config['data_check']['kl_threshold'],
                     "min_price": config['etl']['min_price'],
-                    "max_price": config['etl']['max_price']},
+                    "max_price": config['etl']['max_price'],
+                    "min_longitude": config['etl']['min_longitude'],
+                    "max_longitude": config['etl']['max_longitude'],
+                    "min_latitude": config['etl']['min_latitude'],
+                    "max_latitude": config['etl']['max_latitude']
+                    },
             )
 
         if "data_split" in active_steps:

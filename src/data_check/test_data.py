@@ -3,7 +3,7 @@ import numpy as np
 import scipy.stats
 
 
-def test_column_names(data):
+def test_column_names(data: pd.DataFrame):
     """
     Test that all columns are in place
     """
@@ -32,7 +32,7 @@ def test_column_names(data):
     assert list(expected_colums) == list(these_columns)
 
 
-def test_neighborhood_names(data):
+def test_neighborhood_names(data: pd.DataFrame):
     """
     Test that all neighborhood names are present and consistent
     """
@@ -44,11 +44,13 @@ def test_neighborhood_names(data):
     assert set(known_names) == set(neigh)
 
 
-def test_proper_boundaries(data: pd.DataFrame):
+def test_proper_boundaries(data: pd.DataFrame, min_longitude: float, 
+                           max_longitude: float, min_latitude: float,
+                           max_latitude: float):
     """
     Test proper longitude and latitude boundaries for properties in and around NYC
     """
-    idx = data['longitude'].between(-74.25, -73.50) & data['latitude'].between(40.5, 41.2)
+    idx = data['longitude'].between(min_longitude, max_longitude) & data['latitude'].between(min_latitude, max_latitude)
 
     assert np.sum(~idx) == 0
 
@@ -64,7 +66,7 @@ def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_th
     assert scipy.stats.entropy(dist1, dist2, base=2) < kl_threshold
 
 
-def test_row_count(data):
+def test_row_count(data: pd.DataFrame):
     """
     Test size of the input data, which should be at least 15k samples,
     but no more than 1 mln
@@ -72,7 +74,7 @@ def test_row_count(data):
     assert 15000 < data.shape[0] < 1000000
 
 
-def test_price_range(data, min_price, max_price):
+def test_price_range(data: pd.DataFrame, min_price: float, max_price: float):
     """
     Test that there was proper filter applied to remove
     outlying prices

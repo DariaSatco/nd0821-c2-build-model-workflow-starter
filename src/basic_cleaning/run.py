@@ -26,7 +26,8 @@ def go(args):
     idx = df['price'].between(args.min_price, args.max_price)
     df = df[idx].copy()
     # geolocation filter: NYC only
-    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    idx = ( (df['longitude'].between(args.min_longitude, args.max_longitude)) & 
+            (df['latitude'].between(args.min_latitude, args.max_latitude)) )
     df = df[idx].copy()
     # Convert last_review to datetime
     df['last_review'] = pd.to_datetime(df['last_review'])
@@ -85,6 +86,34 @@ if __name__ == "__main__":
         "--max_price", 
         type=float,
         help="Maximum price for ourlier removal",
+        required=True
+    )
+
+    parser.add_argument(
+        "--min_longitude", 
+        type=float,
+        help="Minimum longitude for sample coordinates to remove ourliers",
+        required=True
+    )
+
+    parser.add_argument(
+        "--max_longitude", 
+        type=float,
+        help="Maximum longitude for sample coordinates to remove ourliers",
+        required=True
+    )
+
+    parser.add_argument(
+        "--min_latitude", 
+        type=float,
+        help="Minimum latitude for sample coordinates to remove ourliers",
+        required=True
+    )
+
+    parser.add_argument(
+        "--max_latitude", 
+        type=float,
+        help="Maximum latitude for sample coordinates to remove ourliers",
         required=True
     )
 
