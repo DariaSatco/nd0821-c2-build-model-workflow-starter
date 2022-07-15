@@ -1,9 +1,11 @@
 # ML Pipeline for Short-Term Rental Prices in NYC
 This repo is one of the projects within Udacity ML DevOps Engineer Nanodegree. The objective of this project is to wrap up simple regression model for Rental prices predictions into [MLflow pipeline](https://mlflow.org) with experiment tracking via [Weights&Biases platform](https://wandb.ai). 
 
-This repo is a filled up version of the [source repo](https://github.com/udacity/nd0821-c2-build-model-workflow-starter), which was shared by Udacity team as a starter code for the excersise. 
+This repo is a full filled version of the [source repo](https://github.com/udacity/nd0821-c2-build-model-workflow-starter), which was shared by Udacity team as a starter code for the excersise. 
 
-### Prerequisites
+The corresponding W&B repo can be found [here](https://wandb.ai/dariasatco/nyc_airbnb)
+
+## Prerequisites
 
 #### Create environment
 Make sure to have conda installed and ready, then create a new environment using the ``environment.yml``
@@ -29,7 +31,7 @@ wandb: Appending key for api.wandb.ai to your netrc file: /home/[your username]/
 ```
 
 
-### The configuration
+## Configuration
 As usual, the parameters controlling the pipeline are defined in the ``config.yaml`` file. We are using Hydra to manage this configuration file. 
 Open this file and get familiar with its content. This file is only read by the ``main.py`` script 
 (i.e., the pipeline) and its content is
@@ -39,7 +41,7 @@ the configuration file. It can be accessed from the ``go`` function as
 ``config["main"]["project_name"]``.
 
 
-### Running the entire pipeline or just a selection of steps
+## Running the entire pipeline or just a selection of steps
 In order to run the pipeline when you are developing, you need to be in the root of the starter kit, 
 then you can execute as usual:
 
@@ -69,9 +71,9 @@ modeling -> random_forest -> n_estimators to 10 and etl->min_price to 50:
   -P hydra_options="modeling.random_forest.n_estimators=10 etl.min_price=50"
 ```
 
-### Train the model on a data sample
+## Train the model on a data sample
 
-Currently, raw data is sourced from `components/get_data/data`. There are 2 samples available: `sample1.csv` and `sample2.csv`. Whenever you plan to run model with a fresh data extracted, put it into data folder and update ``config.yaml`` with corresponding file name under `etl:sample: new_file_name`. Alternatively, you can pass the file name through the CLI as following:
+Currently, raw data is sourced from `components/get_data/data`. There are 2 samples available: `sample1.csv` and `sample2.csv`. Whenever you plan to run model with a fresh data extracted, put it into data folder and update ``config.yaml`` with corresponding file name under etl -> sample. Alternatively, you can pass the file name through the CLI as following:
 
 ```bash
 > mlflow run https://github.com/[your github username]/nd0821-c2-build-model-workflow-starter.git \
